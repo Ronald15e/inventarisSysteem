@@ -29,10 +29,6 @@ def create_app(test_config=None):
     def index():
         return 'Hello, World index!'
 
-    @app.route('/hello/')
-    def hello():
-        return 'Hello, World!'
-
 
     from . import db
     db.init_app(app)
