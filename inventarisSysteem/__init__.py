@@ -24,10 +24,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/')
-    def index():
-        return 'Hello, World index!'
+    # # a simple page that says hello
+    # @app.route('/')
+    # def index():
+    #     return 'Hello, World index!'
 
 
     from . import db
@@ -35,5 +35,9 @@ def create_app(test_config=None):
 
     from . import auth
     app.register_blueprint(auth.bp)
+
+    from . import voorraad
+    app.register_blueprint(voorraad.bp)
+    app.add_url_rule('/', endpoint='index')
 
     return app
