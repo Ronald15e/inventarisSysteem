@@ -3,13 +3,10 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
-
-
-
 def get_db():
     if 'db' not in g:
         engine = sa.create_engine(
-            r'mssql+pyodbc://computerplan:Comp657plan!@CJVSQL01/inventarisSysteem?driver=ODBC Driver 17 for SQL Server')
+            r'mssql+pyodbc://computerplan:Comp657plan!@CJVSQL01/VIS?driver=ODBC Driver 17 for SQL Server')
         g.db = engine.raw_connection()
 
     return g.db

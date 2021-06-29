@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  {% if g.user %}
+    <h2>Welkom, {{ user[2] }} </h2>
+    {% else %}
+    <h2>Log in om gebruik te maken van het VIS </h2>
+  {% endif %}
+
+{% endblock %}

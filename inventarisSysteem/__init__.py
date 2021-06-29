@@ -1,7 +1,8 @@
 import os
-
 from flask import Flask
-
+# set FLASK_APP=inventarisSysteem
+# set FLASK_ENV=development
+# flask run
 
 def create_app(test_config=None):
     # create and configure the app
@@ -24,12 +25,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # # a simple page that says hello
-    # @app.route('/')
-    # def index():
-    #     return 'Hello, World index!'
-
-
     from . import db
     db.init_app(app)
 
@@ -38,6 +33,15 @@ def create_app(test_config=None):
 
     from . import voorraad
     app.register_blueprint(voorraad.bp)
-    app.add_url_rule('/', endpoint='index')
+    # app.add_url_rule('/', endpoint='index')
+
+    from . import artikel
+    app.register_blueprint(artikel.bp)
+
+    from . import productie
+    app.register_blueprint(productie.bp)
+
+    from . import index
+    app.register_blueprint(index.bp)
 
     return app

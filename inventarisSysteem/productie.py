@@ -7,19 +7,18 @@ from werkzeug.exceptions import abort
 from inventarisSysteem.auth import login_required
 from inventarisSysteem.db import get_db
 
-bp = Blueprint('voorraad', __name__, url_prefix='/voorraad')
+bp = Blueprint('productie', __name__, url_prefix='/productie')
 
 @bp.route('/')
 def index():
     db = get_db()
-    voorraad = db.execute(
-        'SELECT VoorraadID, voo.Artikelnummer, art.Artikelnaam, Merk, Categorie, Prijs, Gebruikersnaam, CreatieTijd'
-        ' FROM Voorraad voo'
-        ' JOIN Artikel  art ON voo.Artikelnummer = art.Artikelnummer'
-        ' JOIN Beheerder beh ON voo.GemaaktDoor = beh.GebruikerID'
-        ' ORDER BY CreatieTijd DESC'
+    productie = db.execute(
+        'SELECT *'
+        ' FROM Productie pro'
+        ' JOIN Artikel art ON pro.Artikelnummer = art.Artikelnummer'
+        ' JOIN Beheerder beh ON pro.GemaaktDoor = beh.GebruikerID'
     ).fetchall()
-    return render_template('voorraad/index.html', voorraad=voorraad)
+    return render_template('productie/index.html', productie=productie)
 
 def get_artikelnummer(Artikelnaam):
     artikelnummer = get_db().execute(
@@ -62,14 +61,15 @@ def create():
     if request.method == 'POST':
         artikelnaam = request.form['Artikelnaam']
         prijs = request.form['Prijs']
+        prijs = float(prijs)
         opmerking = request.form['Opmerking']
+        user = g.user[0]
+        now = datetime.now()
+
         error = None
 
-        if ',' in prijs:
-            prijs = prijs.replace(',', '.')
-            prijs = float(prijs)
-        else:
-            prijs = float(prijs)
+        if not artikelnaam:
+            error = 'artikelnaam is required.'
 
         if error is not None:
             flash(error)
@@ -79,7 +79,7 @@ def create():
             db.execute(
                 'INSERT INTO Voorraad (Artikelnummer, Prijs, GemaaktDoor, CreatieTijd, Opmerking)'
                 ' VALUES (?, ?, ?, ?, ?)',
-                (get_artikelnummer(artikelnaam), prijs, g.user[0], datetime.now(), opmerking)
+                (get_artikelnummer(artikelnaam), prijs, user, now, opmerking)
             )
             db.commit()
             return redirect(url_for('voorraad.index'))
@@ -95,13 +95,9 @@ def update(VoorraadID):
         naam = request.form['naam']
         categorie = request.form['categorie']
         prijs = request.form['prijs']
+        prijs = float(prijs)
+        now = datetime.now()
         error = None
-
-        if ',' in prijs:
-            prijs = prijs.replace(',', '.')
-            prijs = float(prijs)
-        else:
-            prijs = float(prijs)
 
         if error is not None:
             flash(error)
@@ -117,19 +113,21 @@ def update(VoorraadID):
     return render_template('voorraad/update.html', product=VoorraadProduct)
 
 def get_personeelnummer(naam, afdeling):
-
-    if naam and afdeling == "":
-        query = 'SELECT Personeelnummer FROM Medewerker WHERE Naam IS NULL AND Afdeling IS  NULL'
-        personeelnummer = get_db().execute(query).fetchone()
-
-    else:
-        personeelnummer = get_db().execute(
-            'SELECT Personeelnummer'
-            'FROM Medewerker'
-            'WHERE Naam = ? and Afdeling = ?',
-            (naam, afdeling)
+    # if naam or afdeling == None:
+    query = 'SELECT Personeelnummer FROM Medewerker WHERE Naam IS NULL AND Afdeling IS  NULL'
+    personeelnummer = get_db().execute(query
+            # 'SELECT Personeelnummer '
+            # 'FROM Medewerker'
+            # 'WHERE Naam IS NULL AND Afdeling IS  NULL'
         ).fetchone()
-
+    # else:
+    #     personeelnummer = get_db().execute(
+    #         'SELECT Personeelnummer'
+    #         'FROM Medewerker'
+    #         'WHERE Naam = ? and Afdeling = ?'
+    #         (naam, afdeling)
+    #     ).fetchone()
+    print(personeelnummer[0])
     return personeelnummer[0]
 
 @bp.route('/<int:VoorraadID>/give', methods=('GET', 'POST'))
@@ -140,6 +138,8 @@ def give(VoorraadID):
     if request.method == 'POST':
         persoon = request.form['medewerker']
         afdeling = request.form['afdeling']
+        user = g.user[0]
+        now = datetime.now()
         error = None
 
         if error is not None:
@@ -154,7 +154,7 @@ def give(VoorraadID):
                  VoorraadProduct[8], g.user[0], datetime.now(), get_personeelnummer(persoon, afdeling), VoorraadProduct[0])
             )
             db.commit()
-            return redirect(url_for('productie.index'))
+            return redirect(url_for('voorraad.index'))
     return render_template('voorraad/give.html', product= VoorraadProduct)
 
 @bp.route('/<int:VoorraadID>/delete', methods=('POST',))

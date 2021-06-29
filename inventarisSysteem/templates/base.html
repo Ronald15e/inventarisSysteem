@@ -1,15 +1,22 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
+<title>{% block title %}{% endblock %} - VIS</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<header>
+  <h1><a href="{{ url_for('index.index') }}">Vianen Inventaris Systeem</a></h1>
+</header>
 <nav>
-  <h1>Vianen Inventaris Systeem</h1>
   <ul>
+    <li class="knop"><a href="{{ url_for('artikel.index') }}">Artikelen</a>
+    <li class="knop"><a href="{{ url_for('voorraad.index') }}">Voorraad</a>
+    <li class="knop"><a href="{{ url_for('productie.index') }}">Productie</a>
+
     {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    <li><span>{{ g.user['Gebruikersnaam'] }}</span>
+<!--    <li><a href="{{ url_for('voorraad.create') }}">Nieuw artikel maken</a>-->
+    <li><a href="{{ url_for('auth.logout') }}">Uitloggen</a>
+      {% else %}
+    <li><a href="{{ url_for('auth.login') }}">Inloggen</a>
+    <li><a href="{{ url_for('auth.register') }}">Registreren</a>
     {% endif %}
   </ul>
 </nav>
