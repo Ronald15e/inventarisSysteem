@@ -29,3 +29,9 @@ input[type=submit] { align-self: start; min-width: 10em; }
 select { align-self: start; min-width: 10em; margin-bottom: 1em; }
 footer{padding: 1rem; background: lightgray; font-weight: bold;}
 header h1 {margin: 10px;}
+.knop:hover {background-color: white;}
+.action:hover {background-color: lightgray; font-weight: bold; color: black;}
+.action {border: 2px solid lightgray; border-radius: 5px;}
+.artikeltitel {font-size: 25px;}
+a {text-decoration: none;}
+.active {background-color: white}

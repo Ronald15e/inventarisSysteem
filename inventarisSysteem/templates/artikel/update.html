@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% set active_page = "artikel" %}
 
 {% block header %}
   <h1>{% block title %}Artikelnummer {{ artikel[0] }} bewerken{% endblock %}</h1>
@@ -6,13 +7,13 @@
 
 {% block content %}
   <form method="post">
-      <label for="artikelnaam">naam</label>
+      <label for="artikelnaam">Artikelnaam</label>
     <input name="artikelnaam" id="artikelnaam" value="{{ artikel[1] }}" required>
 
-      <label for="merk">categorie</label>
+      <label for="merk">Merk</label>
     <input name="merk" id="merk" value="{{ artikel[2] }}" required>
 
-      <label for="categorie">categorie</label>
+      <label for="categorie">Categorie</label>
     <input name="categorie" id="categorie" value="{{ artikel[3] }}" required>
 
     <input type="submit" value="Save">

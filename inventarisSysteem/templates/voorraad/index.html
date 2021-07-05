@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% set active_page = "voorraad" %}
 
 {% block header %}
   <h1>{% block title %}Voorraad{% endblock %}</h1>
@@ -12,17 +13,19 @@
     <article class="post">
       <header>
         <div>
-          <h1><a class="action" href="{{ url_for('voorraad.update', VoorraadID=VoorraadProduct['VoorraadID']) }}">{{ VoorraadProduct['Artikelnaam'] }}</a></h1>
         </div>
       </header>
+      <h1>{{ VoorraadProduct['Artikelnaam'] }}</h1>
+
+<!--      <p class="artikelnummer"> Artikelnummer: {{ VoorraadProduct['Artikelnummer'] }}</p>-->
+<!--      <p class="naam">Artikelnaam: {{ VoorraadProduct['Artikelnaam'] }}</p>-->
+      <p class="categorie">Categorie: {{ VoorraadProduct['Categorie'] }}</p>
+      <p class="categorie">Merk: {{ VoorraadProduct['Merk'] }}</p>
+      <p class="prijs">Prijs: {{ VoorraadProduct['Prijs'] }}</p>
+      <p class="creatie">Creatie: {{ VoorraadProduct['CreatieTijd'] }}</p>
+
       <p><a class="action" href="{{ url_for('voorraad.update', VoorraadID=VoorraadProduct['VoorraadID']) }}">Bewerken</a></p>
       <p><a class="action" href="{{ url_for('voorraad.give', VoorraadID=VoorraadProduct['VoorraadID']) }}">Uitboeken</a></p>
-
-      <p class="artikelnummer"> Artikelnummer: {{ VoorraadProduct['Artikelnummer'] }}</p>
-      <p class="naam">Artikelnaam: {{ VoorraadProduct['Artikelnaam'] }}</p>
-      <p class="categorie">Merk: {{ VoorraadProduct['Merk'] }}</p>
-      <p class="categorie">Categorie: {{ VoorraadProduct['Categorie'] }}</p>
-      <p class="prijs">Prijs: {{ VoorraadProduct['Prijs'] }}</p>
 
     </article>
     {% if not loop.last %}

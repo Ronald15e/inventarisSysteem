@@ -1,13 +1,41 @@
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
-from datetime import datetime
 from werkzeug.exceptions import abort
 
 from inventarisSysteem.auth import login_required
 from inventarisSysteem.db import get_db
 
+
 bp = Blueprint('artikel', __name__ ,url_prefix='/artikel')
+
+
+def get_categorie():
+    categorie = get_db().execute(
+        'SELECT DISTINCT categorie'
+        ' FROM artikel'
+        ).fetchall()
+    return categorie
+
+def get_merk():
+    merk = get_db().execute(
+        'SELECT DISTINCT merk'
+        ' FROM artikel'
+        ).fetchall()
+    return merk
+
+def get_post(artikelnummer, check_author=True):
+    artikel = get_db().execute(
+        'SELECT *'
+        ' FROM artikel'
+        ' WHERE artikelnummer = ?',
+        (artikelnummer,)
+    ).fetchone()
+
+    if artikel is None:
+        abort(404, f"Artikelnummer {artikelnummer} doesn't exist. Pech")
+
+    return artikel
 
 @bp.route('/')
 def index():
@@ -50,36 +78,6 @@ def create():
                 e
 
     return render_template('artikel/create.html', categorieen = categorie, merken= merk)
-
-def get_categorie():
-    categorie = get_db().execute(
-        'SELECT DISTINCT categorie'
-        ' FROM artikel'
-        ).fetchall()
-    return categorie
-
-def get_merk():
-    merk = get_db().execute(
-        'SELECT DISTINCT merk'
-        ' FROM artikel'
-        ).fetchall()
-    return merk
-
-def get_post(artikelnummer, check_author=True):
-    artikel = get_db().execute(
-        'SELECT *'
-        ' FROM artikel'
-        ' WHERE artikelnummer = ?',
-        (artikelnummer,)
-    ).fetchone()
-
-    if artikel is None:
-        abort(404, f"Artikelnummer {artikelnummer} doesn't exist. Pech")
-
-    # if check_author and post['author_id'] != g.user['id']:
-    #     abort(403)
-
-    return artikel
 
 
 @bp.route('/<int:artikelnummer>/update', methods=('GET', 'POST'))

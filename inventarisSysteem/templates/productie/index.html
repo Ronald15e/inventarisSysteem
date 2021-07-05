@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% set active_page = "productie" %}
 
 {% block header %}
   <h1>{% block title %}Productie{% endblock %}</h1>
@@ -11,12 +12,18 @@
   {% for ProductieProduct in productie %}
     <article class="post">
 
+      <!--      <p class="artikelnummer"> Artikelnummer: {{ ProductieProduct['Artikelnummer'] }}</p>-->
+      <h1>{{ ProductieProduct['Artikelnaam'] }}</h1>
 
-      <p class="artikelnummer"> Artikelnummer: {{ ProductieProduct['Artikelnummer'] }}</p>
-      <p class="naam">Artikelnaam: {{ ProductieProduct['Artikelnaam'] }}</p>
-      <p class="categorie">Merk: {{ ProductieProduct['Merk'] }}</p>
-      <p class="categorie">Categorie: {{ ProductieProduct['Categorie'] }}</p>
-      <p class="prijs">Prijs: {{ ProductieProduct['Prijs'] }}</p>
+<!--      <p class="naam">Artikelnaam: {{ ProductieProduct['Artikelnaam'] }}</p>-->
+      <!--      <p class="categorie">Merk: {{ ProductieProduct['Merk'] }}</p>-->
+      <!--      <p class="categorie">Categorie: {{ ProductieProduct['Categorie'] }}</p>-->
+      <!--      <p class="prijs">Prijs: {{ ProductieProduct['Prijs'] }}</p>-->
+      <p class="naam">Gebruiker: {{ ProductieProduct['Naam'] }}</p>
+      <p class="naam">Afdeling: {{ ProductieProduct['Afdeling'] }}</p>
+      <p class="naam">Uitgifte: {{ ProductieProduct['UitgifteTijd'] }}</p>
+
+      <a class="action" href="{{ url_for('productie.product', ProductieID=ProductieProduct['ProductieID']) }}">Bewerken</a>
 
     </article>
     {% if not loop.last %}

@@ -6,17 +6,16 @@
 </header>
 <nav>
   <ul>
-    <li class="knop"><a href="{{ url_for('artikel.index') }}">Artikelen</a>
-    <li class="knop"><a href="{{ url_for('voorraad.index') }}">Voorraad</a>
-    <li class="knop"><a href="{{ url_for('productie.index') }}">Productie</a>
+    <li class="{{ 'active' if active_page == 'artikel' else 'knop' }}"><a href="{{ url_for('artikel.index') }}">Artikelen</a>
+    <li class="{{ 'active' if active_page == 'voorraad' else 'knop' }}"><a href="{{ url_for('voorraad.index') }}">Voorraad</a>
+    <li class="{{ 'active' if active_page == 'productie' else 'knop' }}"><a href="{{ url_for('productie.index') }}">Productie</a>
 
     {% if g.user %}
     <li><span>{{ g.user['Gebruikersnaam'] }}</span>
-<!--    <li><a href="{{ url_for('voorraad.create') }}">Nieuw artikel maken</a>-->
-    <li><a href="{{ url_for('auth.logout') }}">Uitloggen</a>
+    <li class="auth"><a href="{{ url_for('auth.logout') }}">Uitloggen</a>
       {% else %}
-    <li><a href="{{ url_for('auth.login') }}">Inloggen</a>
-    <li><a href="{{ url_for('auth.register') }}">Registreren</a>
+    <li class="auth"><a href="{{ url_for('auth.login') }}">Inloggen</a>
+    <li class="auth"><a href="{{ url_for('auth.register') }}">Registreren</a>
     {% endif %}
   </ul>
 </nav>
@@ -31,7 +30,5 @@
 </section>
 
 <footer>
-<p>
-  Concept versie
-</p>
+<p>Concept versie</p>
 </footer>

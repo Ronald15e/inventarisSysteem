@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% set active_page = "artikel" %}
 
 {% block header %}
   <h1>{% block title %}Artikelen{% endblock %}</h1>
@@ -10,17 +11,13 @@
 {% block content %}
   {% for artikel in artikelen %}
     <article class="post">
-      <header>
-        <div>
-          <h1><a class="action" href="{{ url_for('artikel.update', artikelnummer=artikel['Artikelnummer']) }}">{{ artikel['Artikelnaam'] }}</a></h1>
-        </div>
-      </header>
-      <a class="action" href="{{ url_for('auth.logout', id=artikel['id']) }}"></a>
+      <h1 class="artikeltitel">{{ artikel['Artikelnaam'] }}</h1>
       <p class="artikelnummer"> Artikelnummer: {{ artikel['Artikelnummer'] }}</p>
       <p class="naam">Artikelnaam: {{ artikel['Artikelnaam'] }}</p>
-      <p class="created">Merk: {{ artikel['Merk'] }}</p>
       <p class="categorie">Categorie: {{ artikel['Categorie'] }}</p>
+      <p class="merk">Merk: {{ artikel['Merk'] }}</p>
 
+      <a class="action" href="{{ url_for('artikel.update', artikelnummer=artikel['Artikelnummer']) }}">Bewerken</a>
     </article>
     {% if not loop.last %}
       <hr>

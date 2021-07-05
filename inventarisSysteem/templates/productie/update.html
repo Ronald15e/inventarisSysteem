@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
+{% set active_page = "productie" %}
 
 {% block header %}
-  <h1>{% block title %} {{ product['VoorraadID'] }} {% endblock %}</h1>
+  <h1>{% block title %}{{ product['Artikelnaam'] }} Bewerken  {% endblock %}</h1>
 {% endblock %}
-
 {% block content %}
+
   <form method="post">
-      <label for="naam">naam</label>
-    <input name="naam" id="naam" value="{{ request.form['naam'] }}" required>
+      <label for="prijs">Prijs</label>
+    <input name="prijs" id="prijs" value="{{ product['Prijs'] }}">
 
-      <label for="categorie">categorie</label>
-    <input name="categorie" id="categorie" value="{{ request.form['categorie'] }}" required>
+<!--      <label for="afdeling">Afdeling</label>-->
+<!--    <input name="afdeling" id="afdeling" value="{{ request.form['categorie'] }}" required>-->
 
-      <label for="prijs">prijs</label>
-    <input name="prijs" id="prijs" value="{{ request.form['prijs'] }}" required>
+      <label for="opmerking">Opmerking</label>
+    <textarea name="opmerking" id="opmerking">{{ product['Opmerking'] }}</textarea>
 
     <input type="submit" value="Save">
+
   </form>
   <hr>
-  <form action="{{ url_for('voorraad.delete', VoorraadID=product['VoorraadID']) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
-  </form>
+
 {% endblock %}

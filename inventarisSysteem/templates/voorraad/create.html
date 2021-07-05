@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% set active_page = "voorraad" %}
+
 {% block header %}
   <h1>{% block title %}Nieuw artikel toevoegen aan voorraad{% endblock %}</h1>
 {% endblock %}
@@ -24,5 +26,14 @@
   <input type="submit" value="Save">
 
 </form>
+
+<body>
+<form method="POST">
+    {{ form.csrf_token }}
+    {{ form.state }}
+    {{ form.city }}
+    <input type="submite">
+</form>
+</body>
 
 {% endblock %}
