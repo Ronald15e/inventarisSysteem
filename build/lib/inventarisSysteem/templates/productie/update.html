@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% set active_page = "productie" %}
+
+{% block header %}
+  <h1>{% block title %}{{ product['Artikelnaam'] }} Bewerken  {% endblock %}</h1>
+{% endblock %}
+{% block content %}
+
+  <form method="post">
+      <label for="prijs">Prijs</label>
+    <input name="prijs" id="prijs" value="{{ product['Prijs'] }}">
+
+<!--      <label for="afdeling">Afdeling</label>-->
+<!--    <input name="afdeling" id="afdeling" value="{{ request.form['categorie'] }}" required>-->
+
+      <label for="opmerking">Opmerking</label>
+    <textarea name="opmerking" id="opmerking">{{ product['Opmerking'] }}</textarea>
+
+    <input type="submit" value="Save">
+
+  </form>
+  <hr>
+
+{% endblock %}

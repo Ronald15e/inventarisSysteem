@@ -15,10 +15,8 @@ def create_app(test_config=None):
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
     else:
-        # load the test config if passed in
         app.config.from_mapping(test_config)
 
-    # ensure the instance folder exists
     try:
         os.makedirs(app.instance_path)
     except OSError:
@@ -32,7 +30,6 @@ def create_app(test_config=None):
 
     from . import voorraad
     app.register_blueprint(voorraad.bp)
-    # app.add_url_rule('/', endpoint='index')
 
     from . import artikel
     app.register_blueprint(artikel.bp)
@@ -42,6 +39,9 @@ def create_app(test_config=None):
 
     from . import index
     app.register_blueprint(index.bp)
+    app.add_url_rule('/', endpoint='index')
 
     return app
 
+app = create_app()
+app.run()

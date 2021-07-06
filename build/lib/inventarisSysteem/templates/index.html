@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+<header>
+{% block header %}
+  {% if g.user %}
+    <h2>Welkom, {{ user['Gebruikersnaam'] }} </h2>
+  {% else %}
+  <h2> Log in om gebruik te maken van het VIS </h2>
+  {% endif %}
+  </header>
+
+<section>
+  <p>Aantallen in de voorraad:</p>
+<table>
+  <tr>
+    <th>Categorie</th>
+    <th>Aantal</th>
+  </tr>
+  {% for aantal in VoorraadCount %}
+  <tr>
+    <td>{{ aantal[0] }}</td>
+    <td>{{ aantal[1] }}</td>
+      </tr>
+
+  {% endfor %}
+</table>
+</section>
+{% endblock %}

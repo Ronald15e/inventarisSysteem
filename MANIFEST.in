@@ -1,0 +1,3 @@
+graft inventarisSysteem/static
+graft inventarisSysteem/templates
+global-exclude *.pyc

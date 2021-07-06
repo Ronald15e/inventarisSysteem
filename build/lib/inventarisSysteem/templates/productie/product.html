@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% set active_page = "productie" %}
+
+{% block header %}
+
+  <h1>{% block title %}{{ product['Artikelnaam'] }} van {{ product['Naam'] }}{% endblock %}</h1>
+
+{% endblock %}
+{% block content %}
+
+  <p>Artikelnaam: {{ product['Artikelnaam'] }}</p>
+  <p>Merk: {{ product['Merk'] }}</p>
+  <p>Categorie: {{ product['Categorie'] }}</p>
+  <p>Persoon: {{ product['Naam'] }}</p>
+  <p>Afdeling: {{ product['Afdeling'] }}</p>
+  <p>Prijs: {{ product['Prijs'] }}</p>
+  <p>Opmerking: {{ product['Opmerking'] }}</p>
+  <p>Aan voorraad toegevoegd op: {{ product['CreatieTijd'] }} door {{ product['GemaaktDoor'] }}</p>
+  <p>Uitgegeven op: {{ product['UitgifteTijd'] }} door {{ product['UitgifteDoor'] }}</p>
+
+
+ <hr>
+
+ <form action="{{ url_for('productie.update', ProductieID=product['ProductieID']) }}">
+    <input type="submit" value="Bewerken" />
+ </form>
+
+ <form action="{{ url_for('productie.giveback', ProductieID=product['ProductieID']) }}">
+    <input type="submit" value="Terug naar voorraad" />
+ </form>
+
+<!--Verwijderen pas toevoegen als de verwijderede producten uit de productietabel goed afgehandeld worden (HProductie??)-->
+ <form action="{{ url_for('productie.delete', ProductieID=product['ProductieID']) }}" method="post">
+    <input class="danger" type="submit" value="Verwijderen" onclick="return confirm('Weet je het zeker?');">
+ </form>
+
+{% endblock %}

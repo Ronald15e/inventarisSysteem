@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% set active_page = "artikel" %}
+
+{% block header %}
+  <h1>{% block title %}Artikelnummer {{ artikel[0] }} bewerken{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+      <label for="artikelnaam">Artikelnaam</label>
+    <input name="artikelnaam" id="artikelnaam" value="{{ artikel[1] }}" required>
+
+      <label for="merk">Merk</label>
+    <input name="merk" id="merk" value="{{ artikel[2] }}" required>
+
+      <label for="categorie">Categorie</label>
+    <input name="categorie" id="categorie" value="{{ artikel[3] }}" required>
+
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('artikel.delete', artikelnummer=artikel[0]) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Weet je zeker dat je dit wilt verwijderen?');">
+  </form>
+{% endblock %}

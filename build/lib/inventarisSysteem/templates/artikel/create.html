@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% set active_page = "artikel" %}
+
+{% block header %}
+  <h1>{% block title %}Nieuw artikel toevoegen aan artikelen {% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form  method="post">
+
+  <label for="artikelnaam">Artikelnaam</label>
+  <input name="artikelnaam" id="artikelnaam" value="{{ request.form['artikelnaam'] }}" required>
+
+  <label for="merk">Merk</label>
+  <input name="merk" value="{{ request.form['merk'] }}" list="merk" required>
+      <datalist name="merk" id="merk">
+        {% for merk in merken %}
+          <option>{{merk['merk']}}</option>
+        {% endfor %}
+      </datalist>
+
+  <label for="categorie">Categorie</label>
+  <input name="categorie" value="{{ request.form['categorie'] }}" list="categorie" required>
+      <datalist name="categorie" id="categorie">
+        {% for categorie in categorieen %}
+          <option>{{categorie['categorie']}}</option>
+        {% endfor %}
+      </datalist>
+
+  <input type="submit" value="Save">
+</form>
+
+{% endblock %}

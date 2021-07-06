@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% set active_page = "voorraad" %}
+{% set active_page = "productie" %}
+
 
 {% block header %}
   <h1>{% block title %} Artikel {{ product['Artikelnaam'] }} uitboeken {% endblock %}</h1>
@@ -10,17 +11,14 @@
     <p>VoorraadID: {{ product['VoorraadID'] }} </p>
     <p>Artikelnummer: {{ product['Artikelnummer'] }} </p>
     <p>Artikelnaam: {{ product['Artikelnaam'] }} </p>
-    <p>Prijs: {{ product['Prijs'] }} </p>
     <p>Opmerking: {{ product['Opmerking'] }} </p>
 
   <hr>
 
     <h1>Voor wie is het artikel bedoeld?</h1>
-    <p>Als de persoon niet in de database staat moet je onderstaande velden leeg laten en een opmerking erbij zetten voor wie het bedoeld is.</p>
-
   <form method="post">
       <label for="afdeling">Afdeling</label>
-    <input  name="afdeling" id="afdeling" value="{{ request.form['afdeling'] }}">
+    <input name="afdeling" id="afdeling" value="{{ request.form['afdeling'] }}">
 
       <label for="medewerker">Medewerker</label>
     <input name="medewerker" id="medewerker" value="{{ request.form['medewerker'] }}">

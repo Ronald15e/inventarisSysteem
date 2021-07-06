@@ -1,8 +1,0 @@
-MANIFEST.in
-setup.py
-inventarisSysteem.egg-info/PKG-INFO
-inventarisSysteem.egg-info/SOURCES.txt
-inventarisSysteem.egg-info/dependency_links.txt
-inventarisSysteem.egg-info/not-zip-safe
-inventarisSysteem.egg-info/requires.txt
-inventarisSysteem.egg-info/top_level.txt
