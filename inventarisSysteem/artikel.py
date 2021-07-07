@@ -47,9 +47,6 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-    merk = get_merk()
-    categorie = get_categorie()
-
     try:
         if request.method == 'POST':
             artikelnaam = request.form['artikelnaam']
@@ -73,8 +70,7 @@ def create():
                 db.commit()
                 return redirect(url_for('artikel.index'))
 
-
-        return render_template('artikel/create.html', categorieen = categorie, merken= merk)
+        return render_template('artikel/create.html', categorieen = get_categorie(), merken= get_merk())
 
     except Exception as e:
         print(e)

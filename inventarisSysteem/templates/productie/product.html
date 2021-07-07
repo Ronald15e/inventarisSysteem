@@ -9,10 +9,9 @@
 {% block content %}
 
   <p>Artikelnaam: {{ product['Artikelnaam'] }}</p>
-  <p>Merk: {{ product['Merk'] }}</p>
   <p>Categorie: {{ product['Categorie'] }}</p>
-  <p>Persoon: {{ product['Naam'] }}</p>
   <p>Afdeling: {{ product['Afdeling'] }}</p>
+  <p>Persoon: {{ product['Naam'] }}</p>
   <p>Prijs: {{ product['Prijs'] }}</p>
   <p>Opmerking: {{ product['Opmerking'] }}</p>
   <p>Aan voorraad toegevoegd op: {{ product['CreatieTijd'] }} door {{ product['GemaaktDoor'] }}</p>
@@ -30,8 +29,8 @@
  </form>
 
 <!--Verwijderen pas toevoegen als de verwijderede producten uit de productietabel goed afgehandeld worden (HProductie??)-->
- <form action="{{ url_for('productie.delete', ProductieID=product['ProductieID']) }}" method="post">
-    <input class="danger" type="submit" value="Verwijderen" onclick="return confirm('Weet je het zeker?');">
- </form>
+<!-- <form action="{{ url_for('productie.delete', ProductieID=product['ProductieID']) }}" method="post">-->
+<!--    <input class="danger" type="submit" value="Verwijderen" onclick="return confirm('Weet je het zeker?');">-->
+<!-- </form>-->
 
 {% endblock %}

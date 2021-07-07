@@ -27,7 +27,7 @@ def get_personeelnummer(naam, afdeling):
 def get_post(ProductieID):
     ProductieProduct = get_db().execute(
          ' SELECT ProductieID, pro.Artikelnummer, Artikelnaam, Merk, Categorie, Prijs, Opmerking, behA.Gebruikersnaam as GemaaktDoor, '
-         ' CreatieTijd, behB.Gebruikersnaam as UitgifteDoor, UitgifteTijd, pro.Personeelnummer, Naam, Afdeling'
+         ' CAST(CreatieTijd AS smalldatetime) AS CreatieTijd, behB.Gebruikersnaam as UitgifteDoor, CAST(UitgifteTijd AS smalldatetime) AS UitgifteTijd, pro.Personeelnummer, Naam, Afdeling'
          ' FROM Productie pro '
          ' JOIN Artikel art ON pro.Artikelnummer = art.Artikelnummer'
          ' LEFT JOIN Beheerder behA ON pro.GemaaktDoor = behA.GebruikerID'
@@ -47,7 +47,7 @@ def index():
     try:
         productie = get_db().execute(
             ' SELECT ProductieID, pro.Artikelnummer, Artikelnaam, Merk, Categorie, Prijs, Opmerking, behA.Gebruikersnaam as GemaaktDoor, '
-            ' CAST(CreatieTijd AS smalldatetime) AS CreatieTijd, behB.Gebruikersnaam as UitgifteDoor, UitgifteTijd, pro.Personeelnummer, Naam, Afdeling'
+            ' CAST(CreatieTijd AS smalldatetime) AS CreatieTijd, behB.Gebruikersnaam as UitgifteDoor, CAST(UitgifteTijd AS smalldatetime) AS UitgifteTijd, pro.Personeelnummer, Naam, Afdeling'
             ' FROM Productie pro '
             ' JOIN Artikel art ON pro.Artikelnummer = art.Artikelnummer'
             ' LEFT JOIN Beheerder behA ON pro.GemaaktDoor = behA.GebruikerID'

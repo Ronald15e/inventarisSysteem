@@ -19,11 +19,24 @@
     <p>Als de persoon niet in de database staat moet je onderstaande velden leeg laten en een opmerking erbij zetten voor wie het bedoeld is.</p>
 
   <form method="post">
+
       <label for="afdeling">Afdeling</label>
-    <input  name="afdeling" id="afdeling" value="{{ request.form['afdeling'] }}">
+<!--  <input name="afdeling" value="{{ request.form['afdeling'] }}" list="afdeling" required>-->
+      <select name="afdeling" id="afdeling">
+        {% for afdeling in afdelingen %}
+          <option>{{afdeling[0]}}</option>
+        {% endfor %}
+      </select>
+
+
+<!--      <label for="afdeling">Afdeling</label>-->
+<!--    <input  name="afdeling" id="afdeling" value="{{ request.form['afdeling'] }}">-->
 
       <label for="medewerker">Medewerker</label>
     <input name="medewerker" id="medewerker" value="{{ request.form['medewerker'] }}">
+
+    <label for="opmerking">Opmerking</label>
+    <textarea type="text" name="opmerking" id="opmerking">{{ product['Opmerking'] }}</textarea>
 
     <input type="submit" value="Uitboeken">
   </form>

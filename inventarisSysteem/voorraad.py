@@ -60,6 +60,13 @@ def get_personeelnummer(naam, afdeling):
 
     return personeelnummer[0]
 
+def get_afdelingen():
+    afdeling = get_db().execute(
+        ' SELECT DISTINCT Afdeling'
+        ' FROM Medewerker'
+        ).fetchall()
+    return afdeling
+
 def convert_prijs(prijs):
     if prijs != "":
         if ',' in prijs:
@@ -200,23 +207,33 @@ def give(VoorraadID):
 
             afdeling = request.form['afdeling']
             naam = request.form['medewerker']
+            opmerking = request.form['opmerking']
             error = None
 
             if error is not None:
                 flash(error)
             else:
                 db = get_db()
+                data = db.execute('SELECT * FROM Voorraad WHERE VoorraadID = ?', (VoorraadID)).fetchone()
+                print(data)
                 db.execute(
-                    'INSERT INTO Productie (ProductieID, Artikelnummer, Prijs, Opmerking, GemaaktDoor, CreatieTijd, UitgifteDoor, UitgifteTijd, Personeelnummer)'
-                    'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);'
-                    'DELETE FROM Voorraad WHERE VoorraadID = ?;' ,
+                    ' INSERT INTO Productie (ProductieID, Artikelnummer, Prijs, Opmerking, GemaaktDoor, CreatieTijd, UitgifteDoor, UitgifteTijd, Personeelnummer)'
+                    ' VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?);'
+                    ' DELETE FROM Voorraad WHERE VoorraadID = ?;',
                     (VoorraadProduct[0], VoorraadProduct[1], VoorraadProduct[5], VoorraadProduct[9], VoorraadProduct[6],
                      VoorraadProduct[8], g.user[0], datetime.now(), get_personeelnummer(naam, afdeling), VoorraadProduct[0])
                 )
                 db.commit()
+                db.execute(
+                    ' UPDATE Productie '
+                    ' SET Opmerking = ? '
+                    ' WHERE ProductieID = ?; ',
+                    (opmerking, VoorraadID)
+                )
+                db.commit()
                 flash('Item is uitgeboekt naar productie.')
                 return redirect(url_for('productie.index'))
-        return render_template('voorraad/give.html', product= VoorraadProduct)
+        return render_template('voorraad/give.html', product= VoorraadProduct, afdelingen=get_afdelingen())
 
     except Exception as e:
         print(e)
