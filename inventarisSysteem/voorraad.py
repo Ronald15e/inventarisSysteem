@@ -8,7 +8,6 @@ from inventarisSysteem.db import get_db
 from flask_wtf import FlaskForm
 from wtforms import SelectField
 
-
 bp = Blueprint('voorraad', __name__, url_prefix='/voorraad')
 
 def get_artikelnummer(Artikelnaam):
@@ -44,12 +43,9 @@ def get_post(VoorraadID):
     return VoorraadProduct
 
 def get_personeelnummer(naam, afdeling):
-
-    if naam == "" and afdeling == "":
-        print('leeg')
+    if naam == None or naam == "" or naam == "None" and afdeling == "None":
         query = 'SELECT Personeelnummer FROM Medewerker WHERE Naam IS NULL AND Afdeling IS  NULL'
         personeelnummer = get_db().execute(query).fetchone()
-
     else:
         personeelnummer = get_db().execute(
             ' SELECT Personeelnummer'
@@ -131,6 +127,7 @@ def create():
             artikelnaam = request.form['Artikelnaam']
             prijs = request.form['Prijs']
             opmerking = request.form['Opmerking']
+            aantal = int(request.form['aantal'])
             error = None
 
             if prijs.isdecimal() == False:
@@ -139,13 +136,15 @@ def create():
             if error is not None:
                 flash(error)
             else:
-                db = get_db()
-                db.execute(
-                    'INSERT INTO Voorraad (Artikelnummer, Prijs, GemaaktDoor, CreatieTijd, Opmerking)'
-                    ' VALUES (?, ?, ?, ?, ?)',
-                    (get_artikelnummer(artikelnaam), prijs, g.user[0], datetime.now(), opmerking)
-                )
-                db.commit()
+                for i in range(0, aantal):
+                    print('nummer',i)
+                    db = get_db()
+                    db.execute(
+                        'INSERT INTO Voorraad (Artikelnummer, Prijs, GemaaktDoor, CreatieTijd, Opmerking)'
+                        ' VALUES (?, ?, ?, ?, ?)',
+                        (get_artikelnummer(artikelnaam), prijs, g.user[0], datetime.now(), opmerking)
+                    )
+                    db.commit()
                 flash('Item is aan voorraad toegevoegd')
                 return redirect(url_for('voorraad.index'))
 
@@ -197,7 +196,6 @@ def give(VoorraadID):
 
     try:
         if request.method == 'POST':
-            db = get_db()
 
             # medewerkers = db.execute('SELECT DISTINCT Naam FROM Medewerker;').fetchall()
             # print(medewerkers)
@@ -214,8 +212,6 @@ def give(VoorraadID):
                 flash(error)
             else:
                 db = get_db()
-                data = db.execute('SELECT * FROM Voorraad WHERE VoorraadID = ?', (VoorraadID)).fetchone()
-                print(data)
                 db.execute(
                     ' INSERT INTO Productie (ProductieID, Artikelnummer, Prijs, Opmerking, GemaaktDoor, CreatieTijd, UitgifteDoor, UitgifteTijd, Personeelnummer)'
                     ' VALUES  (?, ?, ?, ?, ?, ?, ?, ?, ?);'

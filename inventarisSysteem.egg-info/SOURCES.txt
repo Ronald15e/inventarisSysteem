@@ -17,6 +17,7 @@ inventarisSysteem.egg-info/top_level.txt
 inventarisSysteem/static/VIS.png
 inventarisSysteem/static/style.css
 inventarisSysteem/templates/base.html
+inventarisSysteem/templates/changelog.html
 inventarisSysteem/templates/index.html
 inventarisSysteem/templates/artikel/create.html
 inventarisSysteem/templates/artikel/index.html
@@ -24,11 +25,9 @@ inventarisSysteem/templates/artikel/update.html
 inventarisSysteem/templates/auth/login.html
 inventarisSysteem/templates/auth/register.html
 inventarisSysteem/templates/auth/users.html
-inventarisSysteem/templates/productie/give.html
 inventarisSysteem/templates/productie/index.html
 inventarisSysteem/templates/productie/product.html
 inventarisSysteem/templates/productie/update.html
-inventarisSysteem/templates/voorraad/artikel.html
 inventarisSysteem/templates/voorraad/create.html
 inventarisSysteem/templates/voorraad/give.html
 inventarisSysteem/templates/voorraad/index.html

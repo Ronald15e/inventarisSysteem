@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+
+
+{% endblock %}
+{% block content %}
+
+{% for regel in changelog %}
+    {% if regel.startswith('Versie') %}
+        {% if loop.first %}
+        <h1> Changelog </h1>
+        {% endif %}
+        <hr>
+        <h2>{{ regel }}</h2>
+
+     {% else%}
+     <p class="change"> >> {{ regel }}</p>
+     {% endif %}
+
+ {% endfor %}
+
+{% endblock %}

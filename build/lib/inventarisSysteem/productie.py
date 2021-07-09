@@ -5,24 +5,9 @@ from werkzeug.exceptions import abort
 
 from inventarisSysteem.auth import login_required
 from inventarisSysteem.db import get_db
-from inventarisSysteem.voorraad import check_prijs
+from inventarisSysteem.voorraad import check_prijs, get_afdelingen, get_personeelnummer
 
 bp = Blueprint('productie', __name__, url_prefix='/productie')
-
-def get_personeelnummer(naam, afdeling):
-    if naam and afdeling == "":
-        query = 'SELECT Personeelnummer FROM Medewerker WHERE Naam IS NULL AND Afdeling IS  NULL'
-        personeelnummer = get_db().execute(query).fetchone()
-
-    else:
-        personeelnummer = get_db().execute(
-            'SELECT Personeelnummer'
-            'FROM Medewerker'
-            'WHERE Naam = ? and Afdeling = ?',
-            (naam, afdeling)
-        ).fetchone()
-
-    return personeelnummer[0]
 
 def get_post(ProductieID):
     ProductieProduct = get_db().execute(
@@ -66,11 +51,12 @@ def index():
 @login_required
 def update(ProductieID):
     product = get_post(ProductieID)
-
     try:
         if request.method == 'POST':
             prijs = request.form['prijs']
             opmerking = request.form['opmerking']
+            naam = request.form['medewerker']
+            afdeling = request.form['afdeling']
             error = None
 
             if prijs.isdecimal() == False:
@@ -81,14 +67,14 @@ def update(ProductieID):
             else:
                 db = get_db()
                 db.execute(
-                    ' UPDATE Productie SET Prijs  = ? , Opmerking = ? '
+                    ' UPDATE Productie SET Prijs  = ? , Opmerking = ? , Personeelnummer = ? '
                     ' WHERE ProductieID = ? ',
-                    (prijs, opmerking, ProductieID)
+                    (prijs, opmerking, get_personeelnummer(naam, afdeling),ProductieID)
                 )
                 db.commit()
                 flash('Item is geüpdatet.')
                 return redirect(url_for('productie.index'))
-        return render_template('productie/update.html', product=product)
+        return render_template('productie/update.html', product=product, afdelingen=get_afdelingen())
 
     except Exception as e:
         print(e)
@@ -106,7 +92,11 @@ def product(ProductieID):
 @login_required
 def delete(ProductieID):
     db = get_db()
-    db.execute('DELETE FROM Productie WHERE ProductieID = ?', (ProductieID,))
+    print('')
+    db.execute(' INSERT INTO HProductie'
+               ' SELECT * FROM Productie'
+               ' WHERE ProductieID = ?;'
+               ' DELETE FROM Productie WHERE ProductieID = ?;', (ProductieID, ProductieID))
     db.commit()
     flash('Item is verwijderd en uit productie')
     return redirect(url_for('voorraad.index'))

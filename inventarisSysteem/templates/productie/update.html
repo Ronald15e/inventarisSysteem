@@ -2,19 +2,26 @@
 {% set active_page = "productie" %}
 
 {% block header %}
-  <h1>{% block title %}{{ product['Artikelnaam'] }} Bewerken  {% endblock %}</h1>
+  <h1>{% block title %} {{ product['Artikelnaam'] }} bewerken  {% endblock %}</h1>
 {% endblock %}
 {% block content %}
 
-  <form method="post">
+  <form method="POST">
       <label for="prijs">Prijs</label>
     <input name="prijs" id="prijs" value="{{ product['Prijs'] }}">
 
-<!--      <label for="afdeling">Afdeling</label>-->
-<!--    <input name="afdeling" id="afdeling" value="{{ request.form['categorie'] }}" required>-->
-
       <label for="opmerking">Opmerking</label>
     <textarea name="opmerking" id="opmerking">{{ product['Opmerking'] }}</textarea>
+
+              <label for="afdeling">Afdeling</label>
+      <select name="afdeling" id="afdeling">
+        {% for afdeling in afdelingen %}
+          <option {% if afdeling[0] == product[13] %} selected {% endif %}>{{afdeling[0]}}</option>
+        {% endfor %}
+      </select>
+
+      <label for="medewerker">Medewerker</label>
+    <input name="medewerker" id="medewerker" value="{{ product['Naam'] }}">
 
     <input type="submit" value="Save">
 

@@ -2,9 +2,10 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
-
 from inventarisSysteem.auth import login_required
 from inventarisSysteem.db import get_db
+from inventarisSysteem.index import write_log
+import logging
 
 bp = Blueprint('artikel', __name__ ,url_prefix='/artikel')
 
@@ -73,7 +74,7 @@ def create():
         return render_template('artikel/create.html', categorieen = get_categorie(), merken= get_merk())
 
     except Exception as e:
-        print(e)
+        write_log(e)
         error = 'Er is iets fout gegaan. Je bent teruggestuurd naar de home pagina.'
         flash(error)
         return redirect(url_for('index.index'))

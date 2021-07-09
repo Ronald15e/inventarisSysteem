@@ -1,7 +1,7 @@
 html { font-family: sans-serif; background: #eee; padding: 1rem; }
 body { max-width: 960px; margin: 0 auto; background: white; }
 h1 { font-family: serif; color: #377ba8; margin: 1rem 0; }
-h2 { font-family: serif; color: #377ba8; margin: 1rem 0; }
+h2 { font-family: serif; color: #377ba8; margin: 1rem 0; font-size: 20px; }
 p { font-family: serif; color: #377ba8;}
 a { color: #377ba8; }
 hr { border: none; border-top: 1px solid lightgray; }
@@ -35,3 +35,5 @@ header h1 {margin: 10px;}
 .artikeltitel {font-size: 25px;}
 a {text-decoration: none;}
 .active {background-color: white}
+.change {font-family: 'Source Code Pro', monospace;}
+.leeg {color: red; font-weight: bold}
