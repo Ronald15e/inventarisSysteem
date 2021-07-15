@@ -3,9 +3,9 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from inventarisSysteem.auth import login_required
-from inventarisSysteem.db import get_db
-from inventarisSysteem.voorraad import check_prijs, get_afdelingen, get_personeelnummer
+from VIS.auth import login_required
+from VIS.db import get_db
+from VIS.voorraad import check_prijs, get_afdelingen, get_personeelnummer
 
 bp = Blueprint('productie', __name__, url_prefix='/productie')
 

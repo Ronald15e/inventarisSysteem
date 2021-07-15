@@ -19,25 +19,32 @@
     <p>Als de persoon niet in de database staat moet je onderstaande velden leeg laten en een opmerking erbij zetten voor wie het bedoeld is.</p>
     <p>Je kan ook een product op een afdeling wegschrijven door bij medewerker 'Algemeen' neer te zetten. Zet dan wel bij de opmerking neer voor wie het bedoeld was.</p>
 
-  <form method="post">
+  <hr>
+<form autocomplete="off" method="post">
 
-      <label for="afdeling">Afdeling</label>
-      <select name="afdeling" id="afdeling">
+    <label for="afdeling">Afdeling</label>
+    <select name="afdeling" id="afdeling">
         {% for afdeling in afdelingen %}
-          <option>{{afdeling[0]}}</option>
+        <option>{{afdeling[0]}}</option>
         {% endfor %}
-      </select>
+    </select>
 
-<!--      <label for="afdeling">Afdeling</label>-->
-<!--    <input  name="afdeling" id="afdeling" value="{{ request.form['afdeling'] }}">-->
+    <!--      <label for="afdeling">Afdeling</label>-->
+    <!--    <input  name="afdeling" id="afdeling" value="{{ request.form['afdeling'] }}">-->
 
-      <label for="medewerker">Medewerker</label>
-    <input name="medewerker" id="medewerker" value="{{ request.form['medewerker'] }}">
+    <!--    <input name="medewerker" id="medewerker" value="{{ request.form['medewerker'] }}">-->
+
+    <label for="medewerker">Medewerker</label>
+    <input name="medewerker" value="{{ request.form['medewerker'] }}" list="medewerker" required>
+    <datalist name="medewerker" id="medewerker">
+        {% for medewerker in medewerkers %}
+        <option>{{ medewerker[0] }}</option>
+        {% endfor %}
+    </datalist>
 
     <label for="opmerking">Opmerking</label>
     <textarea type="text" name="opmerking" id="opmerking">{{ product['Opmerking'] }}</textarea>
 
     <input type="submit" value="Uitboeken">
-  </form>
-  <hr>
+</form>
 {% endblock %}

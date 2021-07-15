@@ -1,8 +1,8 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='inventarisSysteem',
-    version='1.6.0',
+    name='VIS',
+    version='1.7',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,

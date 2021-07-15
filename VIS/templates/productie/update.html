@@ -6,7 +6,7 @@
 {% endblock %}
 {% block content %}
 
-  <form method="POST">
+  <form autocomplete="off" method="POST">
       <label for="prijs">Prijs</label>
     <input name="prijs" id="prijs" value="{{ product['Prijs'] }}">
 
@@ -20,9 +20,13 @@
         {% endfor %}
       </select>
 
-      <label for="medewerker">Medewerker</label>
-    <input name="medewerker" id="medewerker" value="{{ product['Naam'] }}">
-
+    <label for="medewerker">Medewerker</label>
+    <input name="medewerker" value="{{ request.form['medewerker'] }}" list="medewerker" required>
+    <datalist name="medewerker" id="medewerker">
+        {% for medewerker in medewerkers %}
+        <option>{{ medewerker[0] }}</option>
+        {% endfor %}
+    </datalist>
     <input type="submit" value="Save">
 
   </form>

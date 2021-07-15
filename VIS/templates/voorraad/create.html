@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<form  method="post">
+<form autocomplete="off" method="post">
 
     <label for="Artikelnaam">Artikelnaam</label>
   <input name="Artikelnaam" value="{{ request.form['Artikelnaam'] }}" list="Artikelnaam" required>

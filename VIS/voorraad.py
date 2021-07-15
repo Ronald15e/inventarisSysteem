@@ -3,10 +3,8 @@ from flask import (
 )
 from datetime import datetime
 from werkzeug.exceptions import abort
-from inventarisSysteem.auth import login_required
-from inventarisSysteem.db import get_db
-from flask_wtf import FlaskForm
-from wtforms import SelectField
+from VIS.auth import login_required
+from VIS.db import get_db
 
 bp = Blueprint('voorraad', __name__, url_prefix='/voorraad')
 
@@ -25,6 +23,13 @@ def get_artikelnaam():
         ' FROM Artikel'
         ).fetchall()
     return artikelen
+
+def get_medewerkers():
+    medewerkers = get_db().execute(
+        'SELECT DISTINCT Naam'
+        ' FROM Medewerker'
+        ).fetchall()
+    return medewerkers
 
 def get_post(VoorraadID):
     VoorraadProduct = get_db().execute(
@@ -75,9 +80,7 @@ def convert_prijs(prijs):
 
 def check_prijs(prijs):
     if ',' in prijs or '.' in prijs:
-        print('bevat . of ,')
         prijs = convert_prijs(prijs)
-        print('prijs is:', prijs)
         error = None
     else:
         error = 'Prijs bestaat uit niet numerieke waarden, pas dit aan.'
@@ -107,21 +110,6 @@ def index():
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
-    # class Artikel():
-    #     db = get_db()
-    #     artikelnummer = db.Column()
-    #     artikelnaam = db.Column(db.Varchar(50))
-    #     merk = db.Column(db.Varchar(25))
-    #     categorie = db.Column(db.Varchar(25))
-
-    # class Form(FlaskForm):
-    #     categorie = SelectField('categorie', choices=[('laptop', 'lenovo'), ('telefoon', 'iPhone Xr')])
-    #     artikel = SelectField('artikel', choices=[])
-
-    # form = Form()
-    # form.artikel.choices = [(Artikel.categorie, Artikel.artikelnaam )for categorie in Artikel.query.filter_by(categorie='laptop').all()]
-
-    artikelnaam = get_artikelnaam()
     try:
         if request.method == 'POST':
             artikelnaam = request.form['Artikelnaam']
@@ -148,7 +136,7 @@ def create():
                 flash('Item is aan voorraad toegevoegd')
                 return redirect(url_for('voorraad.index'))
 
-        return render_template('voorraad/create.html', artikelnamen=artikelnaam)
+        return render_template('voorraad/create.html', artikelnamen=get_artikelnaam())
 
     except Exception as e:
         print(e)
@@ -229,7 +217,7 @@ def give(VoorraadID):
                 db.commit()
                 flash('Item is uitgeboekt naar productie.')
                 return redirect(url_for('productie.index'))
-        return render_template('voorraad/give.html', product= VoorraadProduct, afdelingen=get_afdelingen())
+        return render_template('voorraad/give.html', product= VoorraadProduct, afdelingen=get_afdelingen(), medewerkers=get_medewerkers())
 
     except Exception as e:
         print(e)

@@ -3,9 +3,9 @@ from flask import (
 )
 from werkzeug.exceptions import abort
 
-from inventarisSysteem.auth import login_required
-from inventarisSysteem.db import get_db
-from inventarisSysteem.voorraad import check_prijs, get_afdelingen, get_personeelnummer
+from VIS.auth import login_required
+from VIS.db import get_db
+from VIS.voorraad import check_prijs, get_afdelingen, get_personeelnummer, get_medewerkers
 
 bp = Blueprint('productie', __name__, url_prefix='/productie')
 
@@ -74,7 +74,7 @@ def update(ProductieID):
                 db.commit()
                 flash('Item is geüpdatet.')
                 return redirect(url_for('productie.index'))
-        return render_template('productie/update.html', product=product, afdelingen=get_afdelingen())
+        return render_template('productie/update.html', product=product, afdelingen=get_afdelingen(), medewerkers=get_medewerkers())
 
     except Exception as e:
         print(e)

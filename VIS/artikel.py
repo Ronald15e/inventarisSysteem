@@ -2,9 +2,9 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
 )
 from werkzeug.exceptions import abort
-from inventarisSysteem.auth import login_required
-from inventarisSysteem.db import get_db
-from inventarisSysteem.index import write_log
+from VIS.auth import login_required
+from VIS.db import get_db
+from VIS.index import write_log
 import logging
 
 bp = Blueprint('artikel', __name__ ,url_prefix='/artikel')

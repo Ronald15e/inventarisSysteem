@@ -3,8 +3,8 @@ from flask import (
 )
 from datetime import datetime
 from werkzeug.exceptions import abort
-from inventarisSysteem.auth import login_required
-from inventarisSysteem.db import get_db
+from VIS.auth import login_required
+from VIS.db import get_db
 from flask_wtf import FlaskForm
 from wtforms import SelectField
 

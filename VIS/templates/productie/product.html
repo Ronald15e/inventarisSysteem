@@ -19,7 +19,7 @@
 
  <hr>
 
- <form action="{{ url_for('productie.update', ProductieID=product['ProductieID']) }}">
+ <form autocomplete="off" action="{{ url_for('productie.update', ProductieID=product['ProductieID']) }}">
     <input type="submit" value="Bewerken" />
  </form>
 

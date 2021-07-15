@@ -3,6 +3,7 @@ import pandas as pd
 from io import StringIO
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
+pd.options.display.max_rows
 
 
 def get_data(data):
@@ -11,7 +12,6 @@ def get_data(data):
                         )
     data = StringIO(data.text)
     df = pd.read_csv(data)
-    # print(df)
     return df
 
 def clean_df(df, state):
@@ -19,7 +19,7 @@ def clean_df(df, state):
         df = df[['office_id', 'card_name', 'card_department']]
         print(df)
     elif state == 'departments':
-        # df = df.sort_values(by=['department_id'])
+        df = df.sort_values(by=['department_id'])
         print(df)
 
 def main():
@@ -31,9 +31,9 @@ def main():
 
     for column in staff_df.columns:
         print(column)
-    # print(departments_df)
-    # for column in departments_df.columns:
-    #     print(column)
+    print(departments_df)
+    for column in departments_df.columns:
+        print(column)
 
 if __name__ == "__main__":
     main()
