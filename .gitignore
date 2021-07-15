@@ -13,4 +13,10 @@ dist/
 build/
 *.egg-info/
 
-*.inventarisSysteem.egg-info/
+inventarisSysteem.egg-info/
+instance/
+dist/
+MANIFEST.in/
+
+.setup.py
+.NostradamusAPI.py
