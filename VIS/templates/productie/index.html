@@ -23,6 +23,8 @@
       <p class="naam">Uitgifte: {{ ProductieProduct['UitgifteTijd'] }}</p>
 
       <a class="action" href="{{ url_for('productie.product', ProductieID=ProductieProduct['ProductieID']) }}">Bewerken</a>
+      <a class="action" href="{{ url_for('productie.gebruikersovereenkomst', ProductieID=ProductieProduct['ProductieID']) }}">Gebruikersovereenkomst</a>
+
 
     </article>
     {% if not loop.last %}

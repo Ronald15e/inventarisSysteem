@@ -9,7 +9,7 @@ def get_db():
         # "DRIVER={ODBC Driver 17 for SQL Server};SERVER=192.168.0.152;DATABASE=VIS_copy;UID=computerplan;PWD=Comp657plan!")
         # engine = sa.create_engine(sa_url="mssql+pyodbc:///?odbc_connect=%s" % params, self=None, engine_opts=None)
         engine = SQLAlchemy.create_engine(sa_url=
-            r'mssql+pyodbc://computerplan:Comp657plan!@192.168.0.152/VIS_copy?driver=ODBC Driver 17 for SQL Server', engine_opts={}, self=None)
+            r'mssql+pyodbc://computerplan:Comp657plan!@192.168.0.152/VIS?driver=ODBC Driver 17 for SQL Server', engine_opts={}, self=None)
         g.db = engine.raw_connection()
 
     return g.db

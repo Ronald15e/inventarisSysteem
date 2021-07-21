@@ -24,16 +24,17 @@ def clean_df(df, state):
 
 def main():
     staff_df = get_data('staff')
-    departments_df = get_data('staff')
-
-    clean_df(staff_df, 'staff')
+    departments_df = get_data('departments')
+    staff_df.to_excel('staff.xlsx')
+    departments_df.to_excel('departments.xlsx')
+    # clean_df(staff_df, 'staff')
     # clean_df(departments_df, 'departments')
 
-    for column in staff_df.columns:
-        print(column)
-    print(departments_df)
-    for column in departments_df.columns:
-        print(column)
+    # for column in staff_df.columns:
+    #     print(column)
+    # print(departments_df)
+    # for column in departments_df.columns:
+    #     print(column)
 
 if __name__ == "__main__":
     main()

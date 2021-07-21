@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% set active_page = "productie" %}
+
+{% block header %}
+  <h1>{% block title %} Gebruikersovereenkomst  {% endblock %}</h1>
+{% endblock %}
+{% block content %}
+
+  <form autocomplete="off" method="POST">
+
+    <label for="directieType">Directie type</label>
+    <select name="directieType" id="directieType">
+        <option selected>Algemeen</option>
+        <option>Operationeel</option>
+        <option>Financieel</option>
+    </select>
+
+      <label for="naam">Naam</label>
+      <input name="naam" id="naam" value="{{ product['Naam'] }}">
+
+            <label for="functie">Functie</label>
+      <input name="functie" id="functie">
+
+              <label for="artikelType">Artikel Type</label>
+      <input name="artikelType" id="artikelType" value="{{ product['Categorie'] }}">
+
+        <label for="artikelnaam">Artikelnaam</label>
+      <input name="artikelnaam" id="artikelnaam" value="{{ product['Artikelnaam'] }}">
+
+              <label for="merk">Merk</label>
+      <input name="merk" id="merk" value="{{ product['Merk'] }}">
+
+      <label for="serieNummer">Serie nummer</label>
+      <input name="serieNummer" id="serieNummer">
+
+    <input type="submit" value="Gebruikersovereenkomst genereren">
+
+  </form>
+  <hr>
+
+{% endblock %}

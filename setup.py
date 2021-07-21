@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='VIS',
-    version='1.7',
+    version='1.8',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,

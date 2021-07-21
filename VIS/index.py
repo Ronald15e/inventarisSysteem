@@ -10,7 +10,6 @@ bp = Blueprint('index', __name__,)
 
 @bp.route('/')
 def index():
-    changelog()
     VoorraadCount = count_voorraad()
     return render_template('index.html', user=g.user, VoorraadCount=VoorraadCount)
 

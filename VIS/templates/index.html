@@ -9,20 +9,8 @@
   </header>
 
 <section>
-<iframe width="928" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=c12c2df0-3b3b-46f4-8e0b-2f31efb6957c&autoAuth=true&ctid=3071d9f0-d24d-41d8-9c78-646d84ff3bd5&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" frameborder="0" allowFullScreen="false"></iframe>
-  <p>Aantallen in de voorraad:</p>
-<table>
-  <tr>
-    <th>Categorie</th>
-    <th>Aantal</th>
-  </tr>
-  {% for aantal in VoorraadCount %}
-  <tr>
-    <td class="{{ 'leeg' if aantal['Aantal'] == 0 }}">{{ aantal['Categorie'] }}</td>
-    <td class="{{ 'leeg' if aantal['Aantal'] == 0 }}">{{ aantal['Aantal'] }}</td>
-      </tr>
-
-  {% endfor %}
-</table>
+  {% if g.user %}
+    <iframe width="928" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=c12c2df0-3b3b-46f4-8e0b-2f31efb6957c&autoAuth=true&ctid=3071d9f0-d24d-41d8-9c78-646d84ff3bd5&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D&filterPaneEnabled=false&navContentPaneEnabled=false" frameborder="0" allowFullScreen="false"></iframe>
+  {% endif %}
 </section>
 {% endblock %}
