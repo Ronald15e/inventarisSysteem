@@ -2,7 +2,6 @@
 <header>
 {% block header %}
   {% if g.user %}
-    <h2>Welkom, {{ user['Gebruikersnaam'] }} </h2>
   {% else %}
   <h2> Log in om gebruik te maken van het VIS </h2>
   {% endif %}
@@ -10,7 +9,7 @@
 
 <section>
   {% if g.user %}
-    <iframe width="928" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=c12c2df0-3b3b-46f4-8e0b-2f31efb6957c&autoAuth=true&ctid=3071d9f0-d24d-41d8-9c78-646d84ff3bd5&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D&filterPaneEnabled=false&navContentPaneEnabled=false" frameborder="0" allowFullScreen="false"></iframe>
+    <iframe width="1280" height="675" src="https://app.powerbi.com/reportEmbed?reportId=5adb6d02-d95f-4bdc-b150-ad5d2cb607d1&autoAuth=true&ctid=3071d9f0-d24d-41d8-9c78-646d84ff3bd5&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLWQtcHJpbWFyeS1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D&filterPaneEnabled=false&navContentPaneEnabled=false" frameborder="0" allowFullScreen="false"></iframe>
   {% endif %}
 </section>
 {% endblock %}

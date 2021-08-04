@@ -6,12 +6,12 @@
 {% endblock %}
 
 {% block content %}
-
-    <p>VoorraadID: {{ product['VoorraadID'] }} </p>
-    <p>Artikelnummer: {{ product['Artikelnummer'] }} </p>
-    <p>Artikelnaam: {{ product['Artikelnaam'] }} </p>
-    <p>Prijs: {{ product['Prijs'] }} </p>
-    <p>Opmerking: {{ product['Opmerking'] }} </p>
+<div class="text">
+    <p>VoorraadID: <a class="bold">{{ product['VoorraadID'] }} </a></p>
+    <p>Artikelnummer: <a class="bold">{{ product['Artikelnummer'] }}</a> </p>
+    <p>Artikelnaam:<a class="bold"> {{ product['Artikelnaam'] }}</a> </p>
+    <p>Prijs:<a class="bold"> € {{ product['Prijs'] }} </a></p>
+    <p>Opmerking:<a class="bold"> {{ product['Opmerking'] }}</a> </p>
 
   <hr>
 
@@ -20,6 +20,7 @@
     <p>Je kan ook een product op een afdeling wegschrijven door bij medewerker 'Algemeen' neer te zetten. Zet dan wel bij de opmerking neer voor wie het bedoeld was.</p>
 
   <hr>
+    </div>
 <form autocomplete="off" method="post">
 
     <label for="afdeling">Afdeling</label>

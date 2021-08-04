@@ -6,17 +6,16 @@
 {% endblock %}
 
 {% block content %}
-
-  <p>VoorraadID: {{ product['VoorraadID'] }}</p>
-  <p>Artikelnaam: {{ product['Artikelnaam'] }}</p>
-  <p>Categorie: {{ product['Categorie'] }}</p>
-<!--  <p>Merk: {{ product['Merk'] }}</p>-->
-  <p>Prijs: {{ product['Prijs'] }}</p>
-  <p>Opmerking: {{ product['Opmerking'] }}</p>
-  <p>Aan voorraad toegevoegd op: {{ product['CreatieTijd'] }} door {{ product['GemaaktDoor'] }}</p>
-
+<div class="text">
+  <p>VoorraadID: <a class="bold">{{ product['VoorraadID'] }}</a></p>
+  <p>Artikelnaam: <a class="bold">{{ product['Artikelnaam'] }}</a></p>
+  <p>Categorie: <a class="bold">{{ product['Categorie'] }}</a></p>
+  <p>Prijs: <a class="bold">€ {{ product['Prijs'] }}</a></p>
+  <p>Opmerking: <a class="bold">{{ product['Opmerking'] }}</a></p>
+  <p>Aan voorraad toegevoegd op: <a class="bold">{{ product['CreatieTijd'] }}</a> door <a class="bold">{{ product['GemaaktDoor'] }}</a></p>
+</div>
 <hr>
-
+<div>
   <form autocomplete="off" method="post">
 
       <label for="prijs">Prijs</label>
@@ -31,4 +30,5 @@
   <form action="{{ url_for('voorraad.delete', VoorraadID=product['VoorraadID']) }}" method="post">
     <input class="danger" type="submit" value="Verwijderen" onclick="return confirm('Weet je het zeker?');">
   </form>
+  </div>
 {% endblock %}

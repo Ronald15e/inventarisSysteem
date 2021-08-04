@@ -1,36 +1,43 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - VIS</title>
 <link rel="shortcut icon" href="{{ url_for('static', filename='VIS.png') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='newstyle.css') }}">
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
 <header>
-  <h1><a href="{{ url_for('index.index') }}">Vianen Inventaris Systeem</a></h1>
+  <a class="titel" href="{{ url_for('index.index') }}"><img src="/static/vianen logo.jpg"></a>
 </header>
-<nav>
+<nav class="navgrid">
   <ul>
-    <li class="{{ 'active' if active_page == 'artikel' else 'knop' }}"><a href="{{ url_for('artikel.index') }}">Artikelen</a>
-    <li class="{{ 'active' if active_page == 'voorraad' else 'knop' }}"><a href="{{ url_for('voorraad.index') }}">Voorraad</a>
-    <li class="{{ 'active' if active_page == 'productie' else 'knop' }}"><a href="{{ url_for('productie.index') }}">Productie</a>
+    <li><a class="{{ 'active' if active_page == 'artikel' else 'navknop' }}" href="{{ url_for('artikel.index') }}">Artikelen</a>
+    <li><a class="{{ 'active' if active_page == 'voorraad' else 'navknop' }}" href="{{ url_for('voorraad.index') }}">Voorraad</a>
+    <li><a class="{{ 'active' if active_page == 'productie' else 'navknop' }}" href="{{ url_for('productie.index') }}">Productie</a>
 
     {% if g.user %}
     <li><span>{{ g.user['Gebruikersnaam'] }}</span>
-    <li class="auth"><a href="{{ url_for('auth.logout') }}">Uitloggen</a>
+    <li class="auth"><a class="navknop" href="{{ url_for('auth.logout') }}">Uitloggen</a>
       {% else %}
     <li class="auth"><a href="{{ url_for('auth.login') }}">Inloggen</a>
     <li class="auth"><a href="{{ url_for('auth.register') }}">Registreren</a>
     {% endif %}
   </ul>
 </nav>
-<section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
+
+<header class="header">
+  {% block header %}{% endblock %}
+</header>
+<section>
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
   {% block content %}{% endblock %}
 </section>
 
-<footer>
-  <a class="changelog" href="{{ url_for('index.changelog') }}"> Changelog </a>
-  <p>Versie 1.8</p>
+<footer class="footergrid">
+  <ul>
+  <li><a class="changelog" href="{{ url_for('index.changelog') }}"> Changelog </a></li>
+  <li>Versie 1.10</li>
+  </ul>
 </footer>
+
+<br>

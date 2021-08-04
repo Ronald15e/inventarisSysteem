@@ -17,24 +17,15 @@ def get_data(data):
 def clean_df(df, state):
     if state == 'staff':
         df = df[['office_id', 'card_name', 'card_department']]
-        print(df)
     elif state == 'departments':
         df = df.sort_values(by=['department_id'])
-        print(df)
 
 def main():
-    staff_df = get_data('staff')
-    departments_df = get_data('departments')
+    staff_df = get_data('types')
+    # departments_df = get_data('departments')
+    print(staff_df)
     staff_df.to_excel('staff.xlsx')
-    departments_df.to_excel('departments.xlsx')
-    # clean_df(staff_df, 'staff')
-    # clean_df(departments_df, 'departments')
-
-    # for column in staff_df.columns:
-    #     print(column)
-    # print(departments_df)
-    # for column in departments_df.columns:
-    #     print(column)
+    # departments_df.to_excel('departments.xlsx')
 
 if __name__ == "__main__":
     main()

@@ -47,15 +47,14 @@ def create_gebruikersovereenkomst(directieType, naam, functie, artikelType, arti
                 run.text = run.text.replace('!merk', merk)
             elif '!serienummer' in run.text:
                 run.text = run.text.replace('!serienummer', serieNummer)
-
-    document.save(rf'\\192.168.0.12\Data\ICT\VIS\gebruikersovereenkomsten\{today} - {naam}.docx')
-    # time.sleep(5)
-    # convert(rf'\\192.168.0.12\Data\ICT\VIS\gebruikersovereenkomsten\{today} - {naam}.docx', rf'\\192.168.0.12\Data\ICT\VIS\gebruikersovereenkomst\{today} - {naam}.pdf')
+    locatie = rf'\\192.168.0.12\Data\ICT\VIS\gebruikersovereenkomsten\{today} - {naam}.docx'
+    document.save(locatie)
+    return locatie
 
 def get_post(ProductieID):
     ProductieProduct = get_db().execute(
          ' SELECT ProductieID, pro.Artikelnummer, Artikelnaam, Merk, Categorie, Prijs, Opmerking, behA.Gebruikersnaam as GemaaktDoor, '
-         ' CAST(CreatieTijd AS smalldatetime) AS CreatieTijd, behB.Gebruikersnaam as UitgifteDoor, CAST(UitgifteTijd AS smalldatetime) AS UitgifteTijd, pro.Personeelnummer, Naam, Afdeling'
+         ' CAST(CreatieTijd AS date) AS CreatieTijd, behB.Gebruikersnaam as UitgifteDoor, CAST(UitgifteTijd AS date) AS UitgifteTijd, pro.Personeelnummer, Naam, Afdeling'
          ' FROM Productie pro '
          ' JOIN Artikel art ON pro.Artikelnummer = art.Artikelnummer'
          ' LEFT JOIN Beheerder behA ON pro.GemaaktDoor = behA.GebruikerID'
@@ -75,7 +74,7 @@ def index():
     try:
         productie = get_db().execute(
             ' SELECT ProductieID, pro.Artikelnummer, Artikelnaam, Merk, Categorie, Prijs, Opmerking, behA.Gebruikersnaam as GemaaktDoor, '
-            ' CAST(CreatieTijd AS smalldatetime) AS CreatieTijd, behB.Gebruikersnaam as UitgifteDoor, CAST(UitgifteTijd AS smalldatetime) AS UitgifteTijd, pro.Personeelnummer, Naam, Afdeling'
+            ' CAST(CreatieTijd AS date) AS CreatieTijd, behB.Gebruikersnaam as UitgifteDoor, CAST(UitgifteTijd AS date) AS UitgifteTijd, pro.Personeelnummer, Naam, Afdeling'
             ' FROM Productie pro '
             ' JOIN Artikel art ON pro.Artikelnummer = art.Artikelnummer'
             ' LEFT JOIN Beheerder behA ON pro.GemaaktDoor = behA.GebruikerID'
@@ -177,7 +176,8 @@ def gebruikersovereenkomst(ProductieID):
                 flash(error)
             else:
                 naam = change_voornaam(naam)
-                create_gebruikersovereenkomst(directieType, naam, functie, categorie, artikelnaam, merk, serieNummer)
+                locatie = create_gebruikersovereenkomst(directieType, naam, functie, categorie, artikelnaam, merk, serieNummer)
+                flash(f'Gebruikers overeenkomst is gegenereerd en opgeslagen op: {locatie}')
 
         return render_template('productie/gebruikersovereenkomst.html', product=get_post(ProductieID))
 

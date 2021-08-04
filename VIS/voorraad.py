@@ -93,7 +93,7 @@ def index():
     try:
         db = get_db()
         voorraad = db.execute(
-            'SELECT VoorraadID, voo.Artikelnummer, art.Artikelnaam, Merk, Categorie, Prijs, Gebruikersnaam, CAST(CreatieTijd AS smalldatetime) AS CreatieTijd'
+            'SELECT VoorraadID, voo.Artikelnummer, art.Artikelnaam, Merk, Categorie, Prijs, Gebruikersnaam, CAST(CreatieTijd AS date) AS CreatieTijd'
             ' FROM Voorraad voo'
             ' JOIN Artikel  art ON voo.Artikelnummer = art.Artikelnummer'
             ' JOIN Beheerder beh ON voo.GemaaktDoor = beh.GebruikerID'
@@ -184,12 +184,6 @@ def give(VoorraadID):
 
     try:
         if request.method == 'POST':
-
-            # medewerkers = db.execute('SELECT DISTINCT Naam FROM Medewerker;').fetchall()
-            # print(medewerkers)
-
-            # afdelingen = db.execute('SELECT DISTINCT Afdeling FROM Medewerker;').fetchall()
-            # print(afdelingen)
 
             afdeling = request.form['afdeling']
             naam = request.form['medewerker']

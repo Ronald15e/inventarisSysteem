@@ -10,10 +10,10 @@
 {% for regel in changelog %}
     {% if regel.startswith('Versie') %}
         {% if loop.first %}
-        <h1> Changelog </h1>
+        <h1 class="changes"> Changelog </h1>
         {% endif %}
         <hr>
-        <h2>{{ regel }}</h2>
+        <h2 class="changes">{{ regel }}</h2>
 
      {% else%}
      <p class="change"> >> {{ regel }}</p>

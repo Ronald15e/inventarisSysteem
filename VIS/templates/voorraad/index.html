@@ -2,34 +2,38 @@
 {% set active_page = "voorraad" %}
 
 {% block header %}
-  <h1>{% block title %}Voorraad{% endblock %}</h1>
+
+<div class="title-page">
+
+  <ul>
+  <li><h1 class="head">{% block title %}Voorraad{% endblock %}</h1></li>
   {% if g.user %}
-    <a class="action" href="{{ url_for('voorraad.create') }}">Nieuw artikel aan voorraad toevoegen</a>
+  <li><p class="create"><a class="action" href="{{ url_for('voorraad.create') }}">Nieuw artikel aan voorraad toevoegen</a></p></li>
   {% endif %}
+</ul>
+</div>
+
 {% endblock %}
-
 {% block content %}
-  {% for VoorraadProduct in voorraad %}
-    <article class="post">
-      <header>
-        <div>
-        </div>
-      </header>
+<div class="search">
+<input class="searchbar" type="text" id="myInput" onkeyup="myFunction()" placeholder="Zoeken in voorraad..">
+</div>
+
+<div  id="myUL" class="index">
+{% for VoorraadProduct in voorraad %}
+    <article  class="content">
       <h1> {{ VoorraadProduct['Artikelnaam'] }}</h1>
+      <div class="details">
+        <li class="item"> <a>{{ VoorraadProduct['Categorie'] }}</a></li>
+        <li class="item"> <a>{{ VoorraadProduct['Merk'] }}</a></li>
 
-<!--      <p class="artikelnummer"> Artikelnummer: {{ VoorraadProduct['Artikelnummer'] }}</p>-->
-<!--      <p class="naam">Artikelnaam: {{ VoorraadProduct['Artikelnaam'] }}</p>-->
-      <p class="categorie">Categorie: {{ VoorraadProduct['Categorie'] }}</p>
-<!--      <p class="categorie">Merk: {{ VoorraadProduct['Merk'] }}</p>-->
-      <p class="prijs">Prijs: {{ VoorraadProduct['Prijs'] }}</p>
-      <p class="creatie">Creatie: {{ VoorraadProduct['CreatieTijd'] }}</p>
+        <li class="item"> <a>{{ VoorraadProduct['CreatieTijd'] }}</a></li>
+        <li class="item"> <a>€ {{ VoorraadProduct['Prijs'] }}</a></li>
 
-      <p><a class="action" href="{{ url_for('voorraad.update', VoorraadID=VoorraadProduct['VoorraadID']) }}">Bewerken</a></p>
-      <p><a class="action" href="{{ url_for('voorraad.give', VoorraadID=VoorraadProduct['VoorraadID']) }}">Uitboeken</a></p>
-
+      <li class="knop"><a class="action" href="{{ url_for('voorraad.update', VoorraadID=VoorraadProduct['VoorraadID']) }}">Bewerken</a></li>
+      <li class="knop"><a class="action" href="{{ url_for('voorraad.give', VoorraadID=VoorraadProduct['VoorraadID']) }}">Uitboeken</a></li>
+    </div>
     </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
   {% endfor %}
+</div>
 {% endblock %}

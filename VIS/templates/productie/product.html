@@ -7,16 +7,16 @@
 
 {% endblock %}
 {% block content %}
-
-  <p>Artikelnaam: {{ product['Artikelnaam'] }}</p>
-  <p>Categorie: {{ product['Categorie'] }}</p>
-  <p>Afdeling: {{ product['Afdeling'] }}</p>
-  <p>Persoon: {{ product['Naam'] }}</p>
-  <p>Prijs: {{ product['Prijs'] }}</p>
-  <p>Opmerking: {{ product['Opmerking'] }}</p>
-  <p>Aan voorraad toegevoegd op: {{ product['CreatieTijd'] }} door {{ product['GemaaktDoor'] }}</p>
-  <p>Uitgegeven op: {{ product['UitgifteTijd'] }} door {{ product['UitgifteDoor'] }}</p>
-
+<div class="text">
+  <p>Artikelnaam: <a class="bold">{{ product['Artikelnaam'] }}</a></p>
+  <p>Categorie: <a class="bold">{{ product['Categorie'] }}</a></p>
+  <p>Afdeling: <a class="bold">{{ product['Afdeling'] }}</a></p>
+  <p>Persoon: <a class="bold">{{ product['Naam'] }}</a></p>
+  <p>Prijs: <a class="bold">€ {{ product['Prijs'] }}</a></p>
+  <p>Opmerking: <a class="bold">{{ product['Opmerking'] }}</a></p>
+  <p>Aan voorraad toegevoegd op: <a class="bold">{{ product['CreatieTijd'] }}</a> door <a class="bold">{{ product['GemaaktDoor'] }}</a></p>
+  <p>Uitgegeven op: <a class="bold">{{ product['UitgifteTijd'] }}</a> door <a class="bold">{{ product['UitgifteDoor'] }}</a></p>
+</div>
  <hr>
 
  <form autocomplete="off" action="{{ url_for('productie.update', ProductieID=product['ProductieID']) }}">
@@ -27,7 +27,6 @@
     <input type="submit" value="Terug naar voorraad" />
  </form>
 
-<!--Verwijderen pas toevoegen als de verwijderede producten uit de productietabel goed afgehandeld worden (HProductie??)-->
  <form action="{{ url_for('productie.delete', ProductieID=product['ProductieID']) }}" method="post">
     <input class="danger" type="submit" value="Verwijderen" onclick="return confirm('Weet je het zeker?');">
  </form>
